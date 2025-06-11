@@ -4,6 +4,10 @@ import List from "./components/List";
 
 const list = [1, 2, 3, 4, 5];
 
+const ButtonWrapper = (props: React.HTMLAttributes<HTMLButtonElement>) => (
+  <button {...props}>Upload a file</button>
+);
+
 function App() {
   return (
     <section>
@@ -56,6 +60,7 @@ function App() {
           accept=".jpg"
           maxSize={5 * 1024 * 1024}
           onUpload={() => alert("File uploaded successfully")}
+          FileWrapper={ButtonWrapper}
         />
       </div>
     </section>

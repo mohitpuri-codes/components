@@ -1,12 +1,18 @@
-import { useRef } from "react";
+import { useRef, type HTMLAttributes } from "react";
 
-interface FileUploaderProps {
+interface FileUploaderProps<T> {
   accept: string;
   maxSize: number;
   onUpload: () => void;
+  FileWrapper: React.FC<HTMLAttributes<T>>;
 }
 
-function FileUploader({ accept, maxSize, onUpload }: FileUploaderProps) {
+function FileUploader<T>({
+  accept,
+  maxSize,
+  onUpload,
+  FileWrapper,
+}: FileUploaderProps<T>) {
   const inputRef = useRef<HTMLInputElement>(null);
   const acceptableArray = accept.split(",");
 
@@ -30,14 +36,24 @@ function FileUploader({ accept, maxSize, onUpload }: FileUploaderProps) {
       onUpload();
     }
   }
+
+  function handleFileWrapperClick() {
+    console.log("click");
+
+    inputRef.current?.click();
+  }
   return (
-    <input
-      type="file"
-      placeholder="Upload File"
-      accept={accept}
-      ref={inputRef}
-      onChange={handleFileChange}
-    />
+    <>
+      <FileWrapper onClick={handleFileWrapperClick} />
+      <input
+        type="file"
+        placeholder="Upload File"
+        accept={accept}
+        ref={inputRef}
+        hidden
+        onChange={handleFileChange}
+      />
+    </>
   );
 }
 
