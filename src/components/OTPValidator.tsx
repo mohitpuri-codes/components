@@ -32,7 +32,7 @@ function OTPValidator({ length = 4 }: { length: number }) {
 
   return (
     <>
-      {Array.from({ length }).map((item, index) => (
+      {Array.from({ length }).map((_, index) => (
         <input
           type="number"
           ref={(refer) => {
