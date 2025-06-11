@@ -1,6 +1,7 @@
 import DataTable from "./components/DataTable";
 import FileUploader from "./components/FileUploader";
 import List from "./components/List";
+import OTPValidator from "./components/OTPValidator";
 
 const list = [1, 2, 3, 4, 5];
 
@@ -62,6 +63,11 @@ function App() {
           onUpload={() => alert("File uploaded successfully")}
           FileWrapper={ButtonWrapper}
         />
+      </div>
+
+      <div>
+        <h2>OTP Input</h2>
+        <OTPValidator length={4} />
       </div>
     </section>
   );
