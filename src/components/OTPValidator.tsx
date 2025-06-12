@@ -12,8 +12,24 @@ function OTPValidator({ length = 4 }: { length: number }) {
     if (inputrefs.current) {
       const currentRef = inputrefs.current[index];
       const nextRef = inputrefs.current[index + 1];
+
       if (currentRef.value && nextRef) {
+        console.log(currentRef.value);
+
         nextRef.focus();
+      }
+    }
+  }
+
+  function handleBackspaceFocus(
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) {
+    if (inputrefs.current) {
+      const currentRef = inputrefs.current[index];
+
+      if (e.key === "Backspace" && currentRef.value === "" && index - 1 >= 0) {
+        inputrefs.current[index - 1].focus();
       }
     }
   }
@@ -39,7 +55,10 @@ function OTPValidator({ length = 4 }: { length: number }) {
             if (refer) inputrefs.current![index] = refer;
           }}
           autoFocus={index === 0}
-          onChange={() => handleChange(index)}
+          onInput={() => handleChange(index)}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+            handleBackspaceFocus(index, e)
+          }
         />
       ))}
       {/* <input type="number" ref={ref1} autoFocus onChange={handleChange} />
